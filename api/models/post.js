@@ -12,7 +12,7 @@ static get all(){
     return new Promise (async (resolve, reject) => {
         try {
             const result = await db.query(`SELECT * FROM posts;`)
-            const posts = result.rows.map(p => new Author(p))
+            const posts = result.rows.map(p => new Post(p))
             resolve(posts);
         } catch (err) {
             reject("Error retrieving posts")
