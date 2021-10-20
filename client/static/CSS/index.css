@@ -1,0 +1,25 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.noborder {
+    border: none;
+    resize: none;
+    font-size: 25px;
+}
+
+#publishButton {
+    background-color: white;
+    border-color: black;
+    display: inline;
+    text-align: center;
+    border-radius: 16px;
+
+    position: absolute;
+    top: 50px;
+    right: 360px;
+    font-size: 25px;
+}
