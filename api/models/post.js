@@ -20,11 +20,23 @@ static get all(){
     })
 };
 
+static findById(id){
+    return new Promise (async (res,rej) =>{
+        try{
+            const result = await db.query(`SELECT * FROM posts WHERE id = $1`,[id])
+            const post = await result.rows[0];
+            res(post)
+        } catch(err){
+            rej("Could not find post")
+        }
+    })
+}
+
 static create(data){
     return new Promise (async (resolve, reject) => {
         try {
             const {title, name, body} = data;
-            let postData = await db.query(`INSERT INTO posts (title, name, body) VALUES ($1, $2, $3) RETURNING title, name, body;`, [title, name, body ]);
+            let postData = await db.query(`INSERT INTO posts (title, name, body) VALUES ($1, $2, $3) RETURNING id,title, name, body;`, [title, name, body ]);
             let newPost = new Post(postData.rows[0]);
             resolve (newPost);
         } catch (err) {

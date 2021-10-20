@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./static/js/index.js"></script>
+    <script defer src="./static/js/index.js"></script>
 
     <title>Telegraph</title>
 </head>
 <body>
-    <form>
+    <form id="newPostForm">
         <input type = "text" id = "title" placeholder="Title"><br>
         <input type = "text" id = "name" placeholder="Your name"><br>
         <textarea area id = "story" placeholder="Your story..." rows = "4" cols = "50"></textarea><br>
-        <button type = "submit" id = "button">Publish</button>
+        <button type = "submit" id ="publishButton">Publish</button>
     </form>
     <article id="postContainer">
 
