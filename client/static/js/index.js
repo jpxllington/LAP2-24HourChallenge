@@ -38,7 +38,7 @@ function renderPost(data){
     postContainer.prepend(postParent);
 }
 
-getAllPosts();
+// getAllPosts();
 
 
 async function newPost(e){
@@ -54,13 +54,24 @@ async function newPost(e){
         body: JSON.stringify({title:newTitle, name:newName, body: newBody})
     }
     let response = await fetch("http://localhost:3000/posts",options)
-    let {err}=response.json()
-    if(err){
-        throw Error(err)
-    }
+
+    const { id, err } = await response.json();
+
+    console.log(id)
+
     document.querySelector("#title").value="";
     document.querySelector("#name").value="";
     document.querySelector("#story").value="";
-    location.reload();
+    
+    getPostById(id);
 
+}
+
+async function getPostById(id){
+    let response = await fetch(`http://localhost:3000/posts/${id}`)
+    let post = await response.json();
+    console.log(post);
+    let newPostForm = document.querySelector("#newPostForm")
+    newPostForm.style.display = "none";
+    renderPost(post)
 }
