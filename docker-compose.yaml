@@ -30,6 +30,7 @@ services:
       - PGPORT=5432
     depends_on:
       - db
+    command: bash -c "npm install && npm run seedDev && npm run dev"
   db:
     image: postgres:12.4
     environment:
