@@ -25,7 +25,6 @@ static create(data){
         try {
             const {title, name, body} = data;
             let postData = await db.query(`INSERT INTO posts (title, name, body) VALUES ($1, $2, $3) RETURNING title, name, body;`, [title, name, body ]);
-            console.log(postData);
             let newPost = new Post(postData.rows[0]);
             resolve (newPost);
         } catch (err) {
