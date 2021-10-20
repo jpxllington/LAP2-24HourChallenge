@@ -1,0 +1,46 @@
+version: '3'
+services: 
+  client:
+    container_name: client
+    build: ./client
+    image: client
+    ports:
+      - 8080:8080
+    working_dir: /code
+    volumes:
+      - type: bind
+        source: ./client
+        target: /code
+    command: ["http-server"]
+  api:
+    container_name: api
+    image: node:12.18.4
+    working_dir: /code
+    volumes:
+      - type: bind
+        source: ./api
+        target: /code
+    ports:
+      - 3000:3000
+    environment: 
+      - PGUSER=24hour
+      - PGHOST=db
+      - PGPASSWORD=challenge
+      - PGDATABASE=24HC
+      - PGPORT=5432
+    depends_on:
+      - db
+  db:
+    image: postgres:12.4
+    environment:
+      - POSTGRES_USER=24hour
+      - POSTGRES_DB=24HC
+      - POSTGRES_PASSWORD=challenge
+    volumes:
+      - "./db/migrations:/docker-entrypoint-initdb.d/:ro"
+      - "dbdata:/var/lib/postgresql/data"
+volumes:
+  dbdata:
+networks:
+  default:
+    name: debug_api
