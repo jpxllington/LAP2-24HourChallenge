@@ -17,7 +17,7 @@ async function getAllPosts(){
 
 
 function renderPost(data){
-    const {title, name, body}=data;
+    const {id, title, name, body}=data;
     let postParent = document.createElement('div');
     let postTitle = document.createElement("h2");
     let postName = document.createElement('p');
@@ -36,6 +36,7 @@ function renderPost(data){
     let postContainer = document.querySelector("#postContainer");
 
     postContainer.prepend(postParent);
+    
 }
 
 // getAllPosts();
@@ -63,7 +64,7 @@ async function newPost(e){
     document.querySelector("#name").value="";
     document.querySelector("#story").value="";
     
-    getPostById(id);
+    window.location.search=`?id=${id}`
 
 }
 
@@ -75,3 +76,17 @@ async function getPostById(id){
     newPostForm.style.display = "none";
     renderPost(post)
 }
+
+const query = window.location.search;
+console.log(query);
+
+if (query){
+    const urlParams= new URLSearchParams(query)
+    const id= urlParams.get('id')
+    console.log(id);
+    getPostById(id);
+
+}
+
+
+console.log(window.location);
