@@ -32,3 +32,5 @@ static create(name){
     });
 };
 };
+
+module.exports = Post;
