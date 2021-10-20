@@ -1,4 +1,9 @@
 
+
+const publishButton = document.querySelector("#newPostForm");
+publishButton.addEventListener("submit", (e) => newPost(e));
+
+
 async function getAllPosts(){
     let posts = await fetch("http://localhost:3000/posts");
     let postData = await posts.json();
@@ -30,7 +35,32 @@ function renderPost(data){
 
     let postContainer = document.querySelector("#postContainer");
 
-    postContainer.append(postParent);
+    postContainer.prepend(postParent);
 }
 
 getAllPosts();
+
+
+async function newPost(e){
+    e.preventDefault()
+    console.log(e.target.title.value);
+    let newTitle = e.target.title.value;
+    let newName = e.target.name.value;
+    let newBody = e.target.story.value;
+
+    let options = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({title:newTitle, name:newName, body: newBody})
+    }
+    let response = await fetch("http://localhost:3000/posts",options)
+    let {err}=response.json()
+    if(err){
+        throw Error(err)
+    }
+    document.querySelector("#title").value="";
+    document.querySelector("#name").value="";
+    document.querySelector("#story").value="";
+    location.reload();
+
+}
